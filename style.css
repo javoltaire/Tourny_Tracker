@@ -1,0 +1,215 @@
+.team_image
+{
+	display:inline-block;
+	height: 60px;
+	width: 60px;
+}
+
+.team_text
+{
+	display:inline-block;
+}
+
+.team_dash
+{
+	margin:2px;
+	width:12%;
+	position:left;
+}
+
+
+.modal_team_image
+{
+	height:200px;
+	width:200px;
+	display:inline;
+}
+#modal_team_info
+{
+	display:inline-block;
+	vertical-align:top;
+}
+
+
+
+
+.groups
+{
+	width:45%;
+	height:70%;
+	display:inline-block;
+	position:relative;
+	top: -150px;
+	left:50px;
+	border-radius: 3px 3px 0 0;
+	background: #EEE;
+	margin:auto;
+	min-width:350px;
+}
+
+.list-group{
+	width: 70%;
+	margin:auto;
+	padding:15px;
+}
+
+.place_badge
+{
+	display:inline-block;
+	width: 30px;
+	text-align:center;
+}
+
+.list-group-item-heading{
+	display:inline-block;
+}
+
+.group_points
+{
+	position:relative;
+	display:inline;
+	float:right;
+}
+
+
+
+
+.bracket{
+	position:relative;
+	left:100px;
+	display:inline-block;
+	background: #EEE;
+	padding-left:50px;
+	padding-right:50px;
+}
+.round {
+  float: left;
+}
+.round.r-of-4 {
+  margin-top:76px;
+}
+.round.r-of-2 {
+  margin-top: 210px;
+}
+.r-of-8 .bracket_game  {
+  max-width: 125px;
+  margin: 10px 0;
+}
+.r-of-4 .bracket_game  {
+  max-width: 125px;
+  margin-bottom: 144px;
+}
+
+.game_team {
+  min-width: 100px;
+  height: 62px;
+  border: 1px solid #AAA;
+  padding-left: 10px;
+}
+.game_team.game_team_1 {
+  border-radius: 3px 3px 0 0;
+}
+.game_team.game_team_2 {
+  border-radius: 0 0 3px 3px;
+}
+.game_team.score {
+  display: inline;
+  float: right;
+  border-left: 1px solid #AAA;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #EEE;
+}
+.player.win {
+  background-color: #B8F2B8;
+}
+.player.loss {
+  background-color: #F2B8B8;
+}
+.connectors {
+  float: left;
+  min-width: 35px;
+}
+.connectors.r-of-2 .top-line {
+  position: relative;
+  top: 137px;
+  width: 17px;
+  border: 1px solid #2A3;
+}
+.connectors.r-of-2 .bottom-line {
+  position: relative;
+  top: 403px;
+  width: 17px;
+  border: 1px solid #2A3;
+}
+.connectors.r-of-2 .vert-line {
+  position: relative;
+  top: 133px;
+  left: -16px;
+  height: 270px;
+  border-right: 2px solid #2A3;
+}
+.connectors.r-of-2 .next-line {
+  position: relative;
+  top: -2px;
+  left: 17px;
+  width: 17px;
+  border: 1px solid #2A3;
+}
+
+.connectors.r-of-4 .top-line-1 {
+  position: relative;
+  top: 71px;
+  width: 17px;
+  border: 1px solid #2A3;
+}
+.connectors.r-of-4 .bottom-line-1 {
+  position: relative;
+  top: 203px;
+  width: 17px;
+  border: 1px solid #2A3;
+}
+.connectors.r-of-4 .vert-line-1 {
+  position: relative;
+  top: 67px;
+  left: -16px;
+  height: 136px;
+  border-right: 2px solid #2A3;
+}
+.connectors.r-of-4 .next-line-1 {
+  position: relative;
+  top: -4px;
+  left: 17px;
+  width: 17px;
+  border: 1px solid #2A3;
+}
+.connectors.r-of-4 .top-line-2 {
+  position: relative;
+  top: 197px;
+  width: 17px;
+  border: 1px solid #2A3;
+}
+.connectors.r-of-4 .bottom-line-2 {
+  position: relative;
+  top: 329px;
+  width: 17px;
+  border: 1px solid #2A3;
+}
+.connectors.r-of-4 .vert-line-2 {
+  position: relative;
+  top: 193px;
+  left: -16px;
+  height: 136px;
+  border-right: 2px solid #2A3;
+}
+.connectors.r-of-4 .next-line-2 {
+  position: relative;
+  top: 124px;
+  left: 17px;
+  width: 17px;
+  border: 1px solid #2A3;
+}
+
+.clear {
+  clear: both;
+}
