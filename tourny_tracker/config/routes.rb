@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  get 'tournaments/new'
+
+  get 'tournaments/create'
+
+  get 'tournaments/show'
+
+  get 'tournaments/edit'
+
+  get 'tournaments/update'
+
+  get 'tournaments/destroy'
+
   get 'tournaments/index'
 
   devise_for :users
