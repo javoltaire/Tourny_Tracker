@@ -6,10 +6,23 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    p.notice
       = notice
-    p.alert
       = alert
-    .container-fluid
-      = render 'layouts/header_menu'
+      nav.navbar.navbar-inverse
+        .container-fluid
+          .navbar-header
+            = link_to 'Touny Tracker', root_path, class: "navbar-brand"
+          ul.nav.navbar-nav.navbar-right
+            - if user_signed_in?
+              li.dropdown
+                a.dropdown-toggle href="#" data-toggle="dropdown" role="button"
+                  = current_user.first_name + ' ' + current_user.last_name
+                  span.caret
+                ul.dropdown-menu
+                  li = link_to 'Account', edit_user_registration_path
+                  li.divider role="separator"
+                  li = link_to 'Logout', destroy_user_session_path, method: :delete
+            - else
+              li = link_to 'Log in', new_user_session_path
+              li = link_to 'Sign up', new_user_registration_path
       = yield
