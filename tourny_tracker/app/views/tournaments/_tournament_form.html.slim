@@ -1,0 +1,15 @@
+.modal-header
+  h2.modal-title Tournament Info
+= form_for @tournament do |f|
+  .modal-body
+    = f.text_field :name, placeholder: "Name", class: "form-control"
+    = f.number_field :team_count, placeholder: "Number of teams in tournament (even)", class: "form-control"
+    = f.number_field :group_count, placeholder: "Number of groups, if any (even)", class: "form-control"
+    = f.number_field :max_teammates, placeholder: "Number of teammates per teams", class: "form-control"
+    = f.text_area :description, placeholder: "Description", class: "form-control"
+    = f.label "Hosted by:"
+    - @tournament.users.each do |user|
+      = f.label user.first_name
+  .modal-footer
+    a.btn.btn-danger data-dismiss="modal" href="#"  Close
+    = f.submit :submit, class: "btn btn-primary"
