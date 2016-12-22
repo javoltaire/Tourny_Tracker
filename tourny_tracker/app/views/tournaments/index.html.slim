@@ -1,2 +1,7 @@
-h1 Tournaments#index
-p Find me in app/views/tournaments/index.html.slim
+- @tournaments.each do |tournament|
+    p = tournament.name
+    p Status:
+    p = tournament.status
+    p By:
+    - tournament.users.each do |user|
+        p = user.first_name

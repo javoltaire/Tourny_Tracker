@@ -1,8 +1,7 @@
 doctype html
 html
   head
-    title
-      | TournyTracker
+    title Tourny Tracker
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
@@ -12,4 +11,5 @@ html
     p.alert
       = alert
     .container-fluid
+      = render 'layouts/header_menu'
       = yield
