@@ -1,3 +1,45 @@
 // Place all the styles related to the Tournaments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#tournaments-container{
+  margin: 0 50px 0px 50px;
+
+  .tournament{
+    width: 200px;
+    height: 300px;
+    color: #333333;
+    background-color: #CCCCCC;
+    float: left;
+    margin: 10px 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
+    text-decoration: none;
+
+    .header{
+      
+      background-color: #F2F2F2;
+      padding: 10px 0px 10px 0px;
+
+      h5{
+        text-align: center;
+        font-weight: bold;
+      }
+
+      img{
+        height: 100px;
+        width: 100px;
+        display: block;
+        margin: auto;
+      }
+    }
+
+    
+
+    .footer{
+      font-size: 14px;
+    }
+
+    &:hover{
+      background-color: #D9D9D9;
+    }
+  }
+}

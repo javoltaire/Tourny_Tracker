@@ -1,13 +1,24 @@
-- @tournaments.each do |tournament|
-    p = tournament.name
-    p Status:
-    p = tournament.status
-    p By:
-    - tournament.users.each do |user|
-        p = user.first_name
-- if user_signed_in?
-  = link_to 'new tournament', new_tournament_path, remote: true, class: "btn btn-primary"
-  #tournament-modal.modal.fade
-    .modal-dialog
-      #tournament_form.modal-content
+.container-fluid
+  .row
+    #tournaments-container.col-md-10
+      - if @tournaments.any?
+        - @tournaments.each do |tournament|
+          = link_to show_tournament_path(tournament), class: 'tournament'
+            .header
+              h5 = tournament.name
+              = image_tag 'cup.png'
+            p = tournament.description
+            p.footer = tournament.status
+            - tournament.users.each do |user|
+              p.footer = user.first_name
+      - else
+        - if user_signed_in?
+          p There are no tournaments currently, click on + to create a new one.
+        - else
+          p There are no tournaments currently, sign in to create one.
+  - if user_signed_in?
+    = link_to 'new tournament', new_tournament_path, remote: true, class: "btn btn-primary"
+    #tournament-modal.modal.fade
+      .modal-dialog
+        #tournament_form.modal-content
   
