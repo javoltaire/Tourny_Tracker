@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221175314) do
+ActiveRecord::Schema.define(version: 20161223221116) do
+
+  create_table "game_types", force: :cascade do |t|
+    t.string   "game_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_type"], name: "index_game_types_on_game_type", unique: true
+  end
 
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
@@ -18,9 +25,11 @@ ActiveRecord::Schema.define(version: 20161221175314) do
     t.integer  "group_count"
     t.integer  "max_teammates"
     t.string   "status"
-    t.text     "description"
+    t.integer  "game_type_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.index ["game_type_id"], name: "index_tournaments_on_game_type_id"
+    t.index ["name"], name: "index_tournaments_on_name", unique: true
   end
 
   create_table "tournaments_users", id: false, force: :cascade do |t|

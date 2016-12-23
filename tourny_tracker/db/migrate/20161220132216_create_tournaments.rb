@@ -6,11 +6,11 @@ class CreateTournaments < ActiveRecord::Migration[5.0]
       t.integer :group_count
       t.integer :max_teammates
       t.string :status
-      t.text :description
+      t.references :game_type
 
       t.timestamps
     end
     
-    add_index :tournament, :name, unique: true
+    add_index :tournaments, :name, unique: true
   end
 end
