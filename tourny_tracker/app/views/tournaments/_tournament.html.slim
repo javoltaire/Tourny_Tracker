@@ -1,0 +1,8 @@
+= link_to show_tournament_path(tournament), class: 'tournament'
+  .header
+    h5 = tournament.name
+    = image_tag 'cup.png'
+  p = tournament.description
+  p.footer = tournament.status
+  - tournament.users.each do |user|
+    p.footer = user.first_name

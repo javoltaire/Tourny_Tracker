@@ -1,17 +1,18 @@
 .modal-header
   h2.modal-title Tournament Info
-= form_for @tournament, url: create_tournament_path do |f|
+= form_for @tournament, remote: true, url: create_tournament_path do |f|
   .modal-body
-    / = f.error_messages
-    / = @tournament.errors.full_messages.first if @user.errors.any?
-    = f.text_field :name, placeholder: "Name", class: "form-control"
-    = f.number_field :team_count, placeholder: "Number of teams in tournament (even)", class: "form-control"
+    #error_explanation.bg-danger.text-danger
+    = f.text_field :name, required: 'required', placeholder: "Name", autofocus: true, class: "form-control"
+    = f.number_field :team_count, required: 'required', placeholder: "Number of teams in tournament (even)", class: "form-control"
     = f.number_field :group_count, placeholder: "Number of groups, if any (even)", class: "form-control"
-    = f.number_field :max_teammates, placeholder: "Number of teammates per teams", class: "form-control"
+    = f.number_field :max_teammates , required: 'required', placeholder: "Number of teammates per teams", class: "form-control"
     = f.text_area :description, placeholder: "Description", class: "form-control"
     p Hosted by:
     - @tournament.users.each do |user|
       p = user.first_name
   .modal-footer
-    a.btn.btn-danger data-dismiss="modal" href="#"  Close
+    - if !@tournament.new_record?
+      = link_to 'Delete', root_path, class: "pull-left btn btn-danger"
+    a.btn.btn-default data-dismiss="modal" href="#"  Close
     = f.submit :submit, class: "btn btn-primary"

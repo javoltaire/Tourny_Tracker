@@ -10,5 +10,7 @@ class CreateTournaments < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+    
+    add_index :tournament, :name, unique: true
   end
 end

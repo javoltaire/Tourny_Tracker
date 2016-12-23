@@ -5,27 +5,21 @@ class TournamentsController < ApplicationController
     @tournaments = Tournament.all
   end
 
-
-
-
-
-
-
-
-
-
   def new
-    @tournament = Tournament.new
+    @tournament = current_user.tournaments.new
     @tournament.users << current_user
   end
 
   def create
-    @tournament = current_user.tournaments.build(tournament_params)
-    # @tournament = Tournament.new(tournament_params)
-    if(@tournament.save)
-      redirect_to root_path
-    # else
-    #   redirect_to new_tournament_path
+    @tournament = current_user.tournaments.create(tournament_params)
+    @tournament.users << current_user
+    respond_to do |format|
+      if @tournament.save
+        format.html
+        format.js
+      else
+        format.json { render json: @tournament.errors.full_messages, status: :unprocessable_entity }
+      end
     end
   end
 
