@@ -9,8 +9,8 @@ Rails.application.routes.draw do
   # Routes for Tournaments
   get '/tournaments' => 'tournaments#index'
   get '/tournaments/new' => 'tournaments#new', :as => :new_tournament
-  post 'tournaments/new' => 'tournaments#create', :as => :create_tournament
-
+  post '/tournaments/new' => 'tournaments#create', :as => :create_tournament
+  get '/tournaments/edit' => 'tournaments#edit', :as => :edit_tournament
 
 
 
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   get '/tournaments/show' => 'tournaments#show', :as => :show_tournament
 
-  get 'tournaments/edit'
+  
 
   get 'tournaments/update'
 

@@ -1,6 +1,6 @@
 .modal-header
   h2.modal-title Tournament Info
-= form_for @tournament, remote: true, url: create_tournament_path do |f|
+= form_for @tournament, remote: true do |f|
   .modal-body.form-horizontal
     #error_explanation.bg-danger.text-danger
     .form-group

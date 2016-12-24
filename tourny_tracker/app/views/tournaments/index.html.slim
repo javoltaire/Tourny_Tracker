@@ -8,9 +8,10 @@
           p There are no tournaments currently, click on + to create a new one.
         - else
           p There are no tournaments currently, sign in to create one.
-  - if user_signed_in?
-    = link_to 'new tournament', new_tournament_path, remote: true, class: "btn btn-primary"
-    #tournament-modal.modal.fade
-      .modal-dialog
-        #tournament_form.modal-content
+- if user_signed_in?
+  = link_to new_tournament_path, remote: true, class: "btn btn-primary", id: "floating-action-button"
+    i.glyphicon.glyphicon-plus
+  #tournament-modal.modal.fade
+    .modal-dialog
+      #tournament_form.modal-content
   
