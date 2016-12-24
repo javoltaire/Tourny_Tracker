@@ -1,4 +1,4 @@
-= link_to show_tournament_path(tournament), class: 'tournament', id: "tournament_#{tournament.id}"
+= link_to tournament_path(tournament), class: 'tournament', id: "tournament_#{tournament.id}"
   .header
     h5.label-header = tournament.name
     = image_tag 'cup.png'

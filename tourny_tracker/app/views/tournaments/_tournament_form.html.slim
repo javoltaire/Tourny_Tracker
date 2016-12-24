@@ -1,6 +1,7 @@
 .modal-header
-  h2.modal-title Tournament Info
-= form_for @tournament, remote: true, url: tournaments_path(@tournament) do |f|
+  h2.modal-title
+    = @tournament.new_record? ? 'New Tournament Info' : 'Edit Tournament Info'
+= form_for @tournament, remote: true do |f|
   .modal-body.form-horizontal
     #error_explanation.bg-danger.text-danger
     .form-group

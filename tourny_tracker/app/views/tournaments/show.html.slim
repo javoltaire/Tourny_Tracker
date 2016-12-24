@@ -2,7 +2,7 @@
   .col-md-11
     h2 = @tournament.name
   .col-md-1
-    = link_to 'Join Tournament', join_tournament_path, class: "pull-right btn btn-primary"
+    / = link_to 'Join Tournament', join_tournament_path, class: "pull-right btn btn-primary"
 .row
   .col-md-12
     ul.nav.nav-tabs
@@ -21,10 +21,9 @@
     - @tournament.users.each do |user|
       span = user.first_name
   .col-md-2
-    - if @tournament.users.exists?(current_user)
-      = link_to 'Delete', destroy_tournament_path(@tournament), class: "btn btn-danger"
+    - if @tournament.users.exists?(current_user.id)
+      / = link_to 'Delete', destroy_tournament_path(@tournament), class: "btn btn-danger"
       = link_to 'Edit', edit_tournament_path(@tournament), remote: true, class: "btn btn-default"
-
 - if user_signed_in?
   #tournament-modal.modal.fade
     .modal-dialog

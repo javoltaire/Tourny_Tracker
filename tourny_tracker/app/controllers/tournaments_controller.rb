@@ -1,14 +1,32 @@
 class TournamentsController < ApplicationController
   before_action :authenticate_user!, except: [ :index, :show ]
 
+
+
+
+
+
+
+
+
+
+
+
   def index
     @tournaments = Tournament.all
+  end
+
+  def show
+    @tournament = find_tournament
+    if(@tournament.nil?)
+      redirect_to tournaments_path
+    end
   end
 
   def new
     @tournament = current_user.tournaments.new
     @tournament.users << current_user
-  end
+  end 
 
   def create
     @tournament = current_user.tournaments.create(tournament_params)
@@ -23,44 +41,36 @@ class TournamentsController < ApplicationController
     end
   end
 
-  def show
-    begin
-      @tournament = Tournament.find(params[:format])
-    rescue ActiveRecord::RecordNotFound => e
+  def edit
+    @tournament = find_tournament
+    if(@tournament.nil?)
       redirect_to tournaments_path
     end
   end
 
-  def edit
-    begin
-      @tournament = Tournament.find(params[:format])
-    rescue ActiveRecord::RecordNotFound => e
-      @tournament = Tournament.new
+  def update
+    @tournament = find_tournament
+    respond_to do |format|
+      if @tournament.update(tournament_params)
+        format.html { redirect_to tournament_path(@tournament) }
+      else
+        format.json { render json: @tournament.errors.full_messages, status: :unprocessable_entity }
+      end
     end
   end
 
+  def destroy
 
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  def join
-    
   end
 
   private
+    def find_tournament
+      begin
+        @tournament = Tournament.find(params[:id])
+      rescue ActiveRecord::RecordNotFound => e
+        @tournament = nil
+      end
+    end
 
     def tournament_params
       params.require(:tournament).permit(:name, :team_count, :group_count, :max_teammates, :game_type_id,)
