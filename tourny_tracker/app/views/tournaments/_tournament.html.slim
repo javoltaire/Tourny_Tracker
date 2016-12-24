@@ -1,8 +1,14 @@
 = link_to show_tournament_path(tournament), class: 'tournament'
   .header
-    h5 = tournament.name
+    h5.label-header = tournament.name
     = image_tag 'cup.png'
-  p = tournament.description
-  p.footer = tournament.status
-  - tournament.users.each do |user|
-    p.footer = user.first_name
+  .footer
+    span.label-header Type: 
+    span = tournament.game_type.game_type
+    br
+    span.label-header State: 
+    span = tournament.status
+    br
+    span.label-header Hosted by: 
+    - tournament.users.each do |user|
+      span = user.first_name

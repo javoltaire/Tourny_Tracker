@@ -1,16 +1,28 @@
 .modal-header
   h2.modal-title Tournament Info
 = form_for @tournament, remote: true, url: create_tournament_path do |f|
-  .modal-body
+  .modal-body.form-horizontal
     #error_explanation.bg-danger.text-danger
-    = f.text_field :name, required: 'required', placeholder: "Name", autofocus: true, class: "form-control"
-    = f.number_field :team_count, required: 'required', placeholder: "Number of teams in tournament (even)", class: "form-control"
-    = f.number_field :group_count, placeholder: "Number of groups, if any (even)", class: "form-control"
-    = f.number_field :max_teammates , required: 'required', placeholder: "Number of teammates per teams", class: "form-control"
-    = f.collection_select :game_type_id, GameType.order(:game_type),:id,:game_type
-    p Hosted by:
-    - @tournament.users.each do |user|
-      p = user.first_name
+    .form-group
+      = f.label "Name:", class: "control-label col-sm-2"
+      .col-sm-10
+        = f.text_field :name, required: 'required', placeholder: "Name", autofocus: true, class: "form-control"
+    .form-group
+      = f.label "Teams:", class: "control-label col-sm-2"
+      .col-sm-10
+        = f.number_field :team_count, required: 'required', placeholder: "Number of teams in tournament (even)", class: "form-control"
+    .form-group
+      = f.label "Groups:", class: "control-label col-sm-2"
+      .col-sm-10
+        = f.number_field :group_count, placeholder: "Number of groups, if any (even)", class: "form-control"
+    .form-group
+      = f.label "Teammates:", class: "control-label col-sm-2"
+      .col-sm-10
+        = f.number_field :max_teammates , required: 'required', placeholder: "Number of teammates per teams", class: "form-control"
+    .form-group
+      = f.label "Type:", class: "control-label col-sm-2"
+      .col-sm-10
+        = f.collection_select :game_type_id, GameType.order(:game_type),:id,:game_type, class: "form-control"
   .modal-footer
     - if !@tournament.new_record?
       = link_to 'Delete', root_path, class: "pull-left btn btn-danger"
