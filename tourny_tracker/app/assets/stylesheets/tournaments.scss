@@ -50,3 +50,26 @@
   bottom: 40px;
   right: 40px;
 }
+
+#tournament-show-header{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+#tournament-show-footer{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  position: fixed;
+  bottom: 0px;
+
+  a{
+    margin: 0px 20px;
+  }
+}

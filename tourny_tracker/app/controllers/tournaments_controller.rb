@@ -23,25 +23,41 @@ class TournamentsController < ApplicationController
     end
   end
 
-
-
-
-
-
-
-
   def show
+    begin
+      @tournament = Tournament.find(params[:format])
+    rescue ActiveRecord::RecordNotFound => e
+      redirect_to tournaments_path
+    end
+  end
+
+  def edit
+    begin
+      @tournament = Tournament.find(params[:format])
+    rescue ActiveRecord::RecordNotFound => e
+      @tournament = Tournament.new
+    end
   end
 
 
 
 
 
+
+  
+
+
+
+
+
+  
+
   
 
   
 
-  def edit
+  def join
+    
   end
 
   private

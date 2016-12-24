@@ -1,13 +1,12 @@
-.container-fluid
-  .row
-    #tournaments-container.col-md-10
-      - if @tournaments.any?
-        = render @tournaments
+.row
+  #tournaments-container.col-md-10
+    - if @tournaments.any?
+      = render @tournaments
+    - else
+      - if user_signed_in?
+        p There are no tournaments currently, click on + to create a new one.
       - else
-        - if user_signed_in?
-          p There are no tournaments currently, click on + to create a new one.
-        - else
-          p There are no tournaments currently, sign in to create one.
+        p There are no tournaments currently, sign in to create one.
 - if user_signed_in?
   = link_to new_tournament_path, remote: true, class: "btn btn-primary", id: "floating-action-button"
     i.glyphicon.glyphicon-plus

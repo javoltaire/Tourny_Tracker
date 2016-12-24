@@ -1,2 +1,37 @@
-h1 Tournaments#show
-p Find me in app/views/tournaments/show.html.slim
+#tournament-show-header.row
+  .col-md-11
+    h2 = @tournament.name
+  .col-md-1
+    = link_to 'Join Tournament', join_tournament_path, class: "pull-right btn btn-primary"
+.row
+  .col-md-12
+    ul.nav.nav-tabs
+      li.active 
+        a data-toggle="tab" href="#groups" Groups
+      li 
+        a data-toggle="tab" href="#brackets" Brackets
+    .tab-content
+      #groups.tab-pane.fade.in.active
+        P groups content
+      #brackets.tab-pane.fade.in
+        p bracket content
+#tournament-show-footer.well.row
+  .col-md-10
+    span Hosted by: 
+    - @tournament.users.each do |user|
+      span = user.first_name
+  .col-md-2
+    - if @tournament.users.exists?(current_user)
+      = link_to 'Delete', destroy_tournament_path(@tournament), class: "btn btn-danger"
+      = link_to 'Edit', edit_tournament_path(@tournament), remote: true, class: "btn btn-default"
+
+- if user_signed_in?
+  #tournament-modal.modal.fade
+    .modal-dialog
+      #tournament_form.modal-content
+    
+
+
+
+    
+    
