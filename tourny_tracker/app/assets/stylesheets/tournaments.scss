@@ -67,9 +67,14 @@
   align-items: center;
   align-content: center;
   position: fixed;
-  bottom: 0px;
+  bottom: 50px;
 
-  a{
-    margin: 0px 20px;
+  .tournament-show-footer-button{
+    margin: 0px 10px;
   }
+}
+
+#tournament-form-group-section{
+  background: #EDEDED;
+  padding: 10px 10px 0px 10px;
 }

@@ -26,13 +26,21 @@ class TournamentsController < ApplicationController
     else
       respond_to do |format|
         format.json { render json: @tournament.errors.full_messages, status: :unprocessable_entity }
-    # respond_to do |format|
-    #   if @tournament.save
-    #     format.html {render @tournament}
-    #     format.js     # use ajax magic to execute the code in create.js.erb
+      end
+    end
+  end
 
-    #   else
-    #     format.json { render json: @tournament.errors.full_messages, status: :unprocessable_entity }
+  def edit
+    @tournament = find_tournament
+  end
+
+  def update
+    @tournament = find_tournament
+    respond_to do |format|
+      if @tournament.update(tournament_params)
+        format.html { redirect_to tournament_path(@tournament) }
+      else
+        format.json { render json: @tournament.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -59,15 +67,7 @@ class TournamentsController < ApplicationController
 
 
 
-
-
-
-  def edit
-    @tournament = find_tournament
-    if(@tournament.nil?)
-      redirect_to tournaments_path
-    end
-  end
+  
 
 
 
@@ -117,16 +117,7 @@ class TournamentsController < ApplicationController
 
 
 
-  def update
-    @tournament = find_tournament
-    respond_to do |format|
-      if @tournament.update(tournament_params)
-        format.html { redirect_to tournament_path(@tournament) }
-      else
-        format.json { render json: @tournament.errors.full_messages, status: :unprocessable_entity }
-      end
-    end
-  end
+  
   
   def destroy
 
@@ -140,8 +131,4 @@ class TournamentsController < ApplicationController
     def tournament_params
       params.require(:tournament).permit(:name, :team_count, :use_grouping, :elimination_type_id, :team_size, :game_id, :tournament_state, grouping_info_attributes: [:elimination_type_id, :group_count, :teams_per_group, :playoffs_advanced])
     end
-
-    # def group_info_params
-    #   params.require(:grouping_info).permit(:elimination_type_id, :group_count, :teams_per_group, :playoffs_advanced)
-    # end
 end

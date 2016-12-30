@@ -9,8 +9,5 @@
     span.label-header State: 
     span = tournament.tournament_state.state
     br
-    span.label-header Hosted by: 
+    span.label-header Created by: 
     span = tournament.creator.first_name
-    - tournament.hosts.each do |host|
-      span " ,"
-      span = host.first_name

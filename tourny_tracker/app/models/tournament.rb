@@ -23,6 +23,22 @@ class Tournament < ApplicationRecord
   # Other attributes accepted
   accepts_nested_attributes_for :grouping_info, allow_destroy: false, reject_if: :should_not_create_grouping?
 
+  def is_current_user_creator?(user)
+    if(user.nil?)
+      false
+    else
+      self.creator == user
+    end
+  end
+
+  def is_current_user_host?(user)
+    if(user.nil?)
+      false
+    else
+      self.hosts.exists?(user.id) || self.creator == user
+    end
+  end
+
   private
     # ================ Validation Methods ==========
     # Make sure there is a grouping info object if use_grouping is true
