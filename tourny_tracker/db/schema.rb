@@ -10,26 +10,86 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223221116) do
+ActiveRecord::Schema.define(version: 20161229012254) do
 
-  create_table "game_types", force: :cascade do |t|
-    t.string   "game_type"
+  create_table "elimination_types", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["game_type"], name: "index_game_types_on_game_type", unique: true
+    t.index ["name"], name: "index_elimination_types_on_name", unique: true
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "group_names", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_group_names_on_name", unique: true
+  end
+
+  create_table "grouping_infos", force: :cascade do |t|
+    t.integer  "elimination_type_id"
+    t.integer  "group_count"
+    t.integer  "teams_per_group"
+    t.integer  "playoffs_advanced"
+    t.integer  "tournament_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["elimination_type_id"], name: "index_grouping_infos_on_elimination_type_id"
+    t.index ["tournament_id"], name: "index_grouping_infos_on_tournament_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.integer  "group_name_id"
+    t.integer  "tournament_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["group_name_id"], name: "index_groups_on_group_name_id"
+    t.index ["tournament_id"], name: "index_groups_on_tournament_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "points"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_teams_on_group_id"
+    t.index ["name"], name: "index_teams_on_name", unique: true
+  end
+
+  create_table "tournament_games", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tournament_states", force: :cascade do |t|
+    t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["state"], name: "index_tournament_states_on_state", unique: true
   end
 
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
     t.integer  "team_count"
-    t.integer  "group_count"
-    t.integer  "max_teammates"
-    t.string   "status"
-    t.integer  "game_type_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["game_type_id"], name: "index_tournaments_on_game_type_id"
-    t.index ["name"], name: "index_tournaments_on_name", unique: true
+    t.boolean  "use_grouping"
+    t.integer  "elimination_type_id"
+    t.integer  "team_size"
+    t.integer  "game_id"
+    t.integer  "tournament_state_id"
+    t.integer  "created_by"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["elimination_type_id"], name: "index_tournaments_on_elimination_type_id"
+    t.index ["game_id"], name: "index_tournaments_on_game_id"
+    t.index ["tournament_state_id"], name: "index_tournaments_on_tournament_state_id"
   end
 
   create_table "tournaments_users", id: false, force: :cascade do |t|

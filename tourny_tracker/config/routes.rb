@@ -6,9 +6,17 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  # Routing for showing user profile
+  resources :users, only: [:show]
+
   # Routes for Tournaments
-  resources :tournaments
+  resources :tournaments do
+    resources :teams, except: [:index]
+    get 'join' => 'tournaments#join'
+  end
+
   
+
   # get '/tournaments' => 'tournaments#index'
   # get '/tournaments/new' => 'tournaments#new', :as => :new_tournament
   # post '/tournaments/new' => 'tournaments#create', :as => :create_tournament
@@ -20,5 +28,6 @@ Rails.application.routes.draw do
   # get 'tournaments/join' => 'tournaments#join', :as => :join_tournament
 
   # get '/tournaments/destroy' => 'tournaments#destroy', :as => :destroy_tournament
+
 
 end

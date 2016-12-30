@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group_name: one
+  tournament: one
+
+two:
+  group_name: two
+  tournament: two

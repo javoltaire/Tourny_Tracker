@@ -1,0 +1,27 @@
+.modal-header
+  h2.modal-title Join tournament
+.modal-body
+  ul.nav.nav-tabs.nav-justified
+    li.active
+      a data-toggle="tab" href="#newteam" New Team
+    li
+      a data-toggle="tab" href="#existingteam" Existing Team
+  .tab-content
+    #newteam.tab-pane.fade.in.active
+      = form_for @team, url: tournament_teams_path(@tournament, @team) do |f|
+        .form-horizontal
+          #error_explanation.bg-danger.text-danger
+          .form-group
+            = f.label "Name:", class: "control-label col-sm-2"
+            .col-sm-10
+              = f.text_field :name, placeholder: "Name of the team", class: "form-control"
+          .form-group  
+            = f.label "Group", class: "control-label col-sm-2"
+            .col-sm-10
+              = f.collection_select :group_id, @tournament.groups.order(:group_name_id),:id,:name_of_group, {}, class: "form-control"
+          .offset-md-6
+            a.btn.btn-default data-dismiss="modal" href="#"  Close
+            = f.submit :submit, class: "btn btn-primary"
+    #existingteam.tab-pane.fade.in
+      p Existing Team
+      
