@@ -46,6 +46,7 @@ GroupName.create(name: "Group W")
 GroupName.create(name: "Group X")
 GroupName.create(name: "Group Y")
 GroupName.create(name: "Group Z")
+GroupName.create(name: "Teams")
 
 # Seeding Users
 jules = User.create(first_name: "Jules", last_name: "Voltaire", email: "jvoltaire@email.com", password: "password")

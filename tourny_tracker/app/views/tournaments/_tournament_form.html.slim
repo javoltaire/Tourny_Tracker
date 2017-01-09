@@ -49,7 +49,5 @@
       .col-sm-10
         = f.collection_select :game_id, Game.order(:name),:id,:name, {}, readonly: !@tournament.new_record?, class: "form-control"
   .modal-footer
-    - if !@tournament.new_record?
-      = link_to 'Delete', root_path, class: "pull-left btn btn-danger"
     a.btn.btn-default data-dismiss="modal" href="#"  Close
     = f.submit :submit, class: "btn btn-primary"

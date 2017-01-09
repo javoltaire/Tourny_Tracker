@@ -1,8 +1,13 @@
 #tournament-show-header.row
   .col-md-11
     h2 = @tournament.name
-  .col-md-1
-    = link_to 'Join Tournament', "#", class: "pull-right btn btn-primary"
+  .col-md-1.dropdown
+    button.btn.btn-primary.dropdown-toggle data-toggle="dropdown"
+      | Join Tournament 
+      span.caret
+    ul.dropdown-menu
+      li = link_to 'Create new Team', new_tournament_team_path(@tournament), remote: true
+      li = link_to 'Join existing Team', new_tournament_teammate_path(@tournament), remote: true
 br
 .row
   .col-md-12
@@ -15,8 +20,7 @@ br
         a data-toggle="tab" href="#brackets" Brackets
     .tab-content
       #standings.tab-pane.fade.in.active
-        - if @tournament.use_grouping
-          = render @tournament.groups
+        = render @tournament.groups
       #games.tab-pane.fade.in
         P Games content
       #brackets.tab-pane.fade.in
@@ -31,9 +35,9 @@ br
       = link_to user_path(host)
         = host.first_name
   .col-md-2
-    - if @tournament.is_current_user_creator?(current_user)
+    - if @tournament.is_user_creator?(current_user)
       = link_to 'Delete', "#", class: "btn btn-danger tournament-show-footer-button"
-    - if @tournament.is_current_user_host?(current_user)
+    - if @tournament.is_user_host?(current_user)
       = link_to 'Edit', edit_tournament_path(@tournament), remote: true, class: "btn btn-default tournament-show-footer-button"
     
 

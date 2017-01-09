@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161229012254) do
+ActiveRecord::Schema.define(version: 20170109155038) do
 
   create_table "elimination_types", force: :cascade do |t|
     t.string   "name"
@@ -53,12 +53,23 @@ ActiveRecord::Schema.define(version: 20161229012254) do
     t.index ["tournament_id"], name: "index_groups_on_tournament_id"
   end
 
+  create_table "teammates", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.integer  "tournament_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["team_id"], name: "index_teammates_on_team_id"
+    t.index ["tournament_id"], name: "index_teammates_on_tournament_id"
+    t.index ["user_id"], name: "index_teammates_on_user_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string   "name"
-    t.integer  "points"
+    t.integer  "points",     default: 0
     t.integer  "group_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.index ["group_id"], name: "index_teams_on_group_id"
     t.index ["name"], name: "index_teams_on_name", unique: true
   end

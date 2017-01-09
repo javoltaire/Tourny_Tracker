@@ -7,6 +7,8 @@ class Tournament < ApplicationRecord
   has_and_belongs_to_many :hosts, class_name: "User"
   has_one :grouping_info, inverse_of: :tournament 
   has_many :groups
+  has_many :teams, through: :groups
+  has_many :members, through: :teams, source: :users
   # Validations
   validates :name, presence: true, uniqueness: true, length: {maximum: 20}, allow_blank: false
 	validates :team_count, presence: true, numericality: { even: true }
@@ -17,13 +19,15 @@ class Tournament < ApplicationRecord
   validates :creator, presence: true
   validates_inclusion_of :use_grouping, :in => [true, false]
   validate :has_grouping_info?
+  validate :number_of_groups_valid
   # Callbacks
   before_save :create_groups
   after_initialize :set_defaults
   # Other attributes accepted
   accepts_nested_attributes_for :grouping_info, allow_destroy: false, reject_if: :should_not_create_grouping?
 
-  def is_current_user_creator?(user)
+  # Tells if the given user is the creator of this tournament
+  def is_user_creator?(user)
     if(user.nil?)
       false
     else
@@ -31,12 +35,36 @@ class Tournament < ApplicationRecord
     end
   end
 
-  def is_current_user_host?(user)
+  # Tells if the given user is a host for this tournament
+  def is_user_host?(user)
     if(user.nil?)
       false
     else
       self.hosts.exists?(user.id) || self.creator == user
     end
+  end
+
+  # This returns a list of groups that are not full
+  def available_groups
+    # Create the array that will hold the list fo groups
+    avail_groups = Array.new
+    # Now find the onces that are not full
+    self.groups.each do |group|
+      unless group.is_full?
+        avail_groups << group
+      end
+    end
+  end
+
+  # since if groups should not be used creates a single group to hold teams,
+  # this method returns that group
+  def groupless_group
+    self.groups.first
+  end
+
+  # Tells if a user is already participating in this tournament
+  def is_user_participant?(user)
+    self.participant.exists?(user.id)
   end
 
   private
@@ -52,6 +80,14 @@ class Tournament < ApplicationRecord
 
     def should_not_create_grouping?
       !self.use_grouping
+    end
+
+    def number_of_groups_valid
+      if(self.use_grouping)
+        errors.add :base, "Number of groups reached." if self.groups.count >= self.grouping_info.group_count
+      else
+        errors.add :base, "Number of groups reached." if self.groups.count >= 1
+      end
     end
 
     # ================ Call back Methods ==========
@@ -70,7 +106,11 @@ class Tournament < ApplicationRecord
           self.groups << Group.new(group_name: g)
         end
       else
+        # Otherwise there should not be grouping info
         self.grouping_info = nil
+        #Create a single group that will hold all the teams
+        team_group_name = GroupName.last
+        self.groups << Group.new(group_name: team_group_name)
       end
     end
 end
