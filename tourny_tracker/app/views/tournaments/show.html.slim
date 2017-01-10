@@ -1,13 +1,18 @@
 #tournament-show-header.row
   .col-md-11
     h2 = @tournament.name
-  .col-md-1.dropdown
-    button.btn.btn-primary.dropdown-toggle data-toggle="dropdown"
-      | Join Tournament 
-      span.caret
-    ul.dropdown-menu
-      li = link_to 'Create new Team', new_tournament_team_path(@tournament), remote: true
-      li = link_to 'Join existing Team', new_tournament_teammate_path(@tournament), remote: true
+  .col-md-1
+    - if user_signed_in?
+      - unless @tournament.is_user_participant?(current_user)
+        .dropdown
+          button.btn.btn-primary.dropdown-toggle data-toggle="dropdown"
+            | Join Tournament 
+            span.caret
+          ul.dropdown-menu
+            li = link_to 'Create new Team', new_tournament_team_path(@tournament), remote: true
+            li = link_to 'Join existing Team', new_tournament_teammate_path(@tournament), remote: true
+      - else
+        = link_to 'Leave tournament', "#", class: "btn btn-danger"
 br
 .row
   .col-md-12

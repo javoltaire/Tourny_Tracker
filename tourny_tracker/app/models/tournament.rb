@@ -64,7 +64,38 @@ class Tournament < ApplicationRecord
 
   # Tells if a user is already participating in this tournament
   def is_user_participant?(user)
-    self.participant.exists?(user.id)
+    self.members.exists?(user.id)
+  end
+
+  # Determines if all teams spots are filled
+  def is_ready?
+    ready = true
+    self.groups.each do |group|
+      unless group.is_full?
+        ready = false 
+        break
+      end
+    end
+    ready
+  end
+
+  # Starts the tournament
+  def start_tournament
+    if is_ready?
+      if self.use_grouping
+        if self.grouping_info.elimination_type.name == "Round Robin"
+          self.groups.each do |group|
+            gen_round_robin_matches(group.teams)
+          end
+        elsif self.grouping_info.elimination_type.name == "Single Elimination"
+
+        end
+      else
+        if self.elimination_type.name == "Round Robin"
+          gen_round_robin_matches(groupless_group.teams)
+        end
+      end
+    end
   end
 
   private
@@ -113,4 +144,18 @@ class Tournament < ApplicationRecord
         self.groups << Group.new(group_name: team_group_name)
       end
     end
+
+    # will generate and save matches necessary for round roubin from a list of teams
+    def gen_round_robin_matches(teams)
+      # Make sure the team object is not nil
+      logger.info teams.count
+      if teams.any?
+        for h in 0..teams.count-1
+          for a in h+1..teams.count-1
+            Match.create(home_team_id: teams[h].id, away_team_id: teams[a].id, round: :prelims).save!
+          end
+        end
+      end
+    end
+
 end

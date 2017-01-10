@@ -2,6 +2,7 @@ class TeamsController < ApplicationController
   before_action :authenticate_user!, except: [:show ]
 
   def show
+    @team = Team.find(params[:id])
   end
 
   def new

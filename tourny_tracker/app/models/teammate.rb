@@ -3,7 +3,7 @@ class Teammate < ApplicationRecord
   belongs_to :user
   belongs_to :team
   belongs_to :tournament
-  #Validations
+  # Validations
   validates :user_id, uniqueness: {scope: :tournament_id}
   # validate :user_not_already_participant
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109155038) do
+ActiveRecord::Schema.define(version: 20170110003011) do
 
   create_table "elimination_types", force: :cascade do |t|
     t.string   "name"
@@ -51,6 +51,18 @@ ActiveRecord::Schema.define(version: 20170109155038) do
     t.datetime "updated_at",    null: false
     t.index ["group_name_id"], name: "index_groups_on_group_name_id"
     t.index ["tournament_id"], name: "index_groups_on_tournament_id"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.integer  "home_team_score"
+    t.integer  "home_team_id"
+    t.integer  "away_team_score"
+    t.integer  "away_team_id"
+    t.string   "round"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["away_team_id"], name: "index_matches_on_away_team_id"
+    t.index ["home_team_id"], name: "index_matches_on_home_team_id"
   end
 
   create_table "teammates", force: :cascade do |t|
