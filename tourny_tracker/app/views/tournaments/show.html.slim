@@ -2,32 +2,48 @@
   .col-md-11
     h2 = @tournament.name
   .col-md-1
-    / = link_to 'Join Tournament', join_tournament_path, class: "pull-right btn btn-primary"
+    - if user_signed_in?
+      - unless @tournament.is_user_participant?(current_user)
+        .dropdown
+          button.btn.btn-primary.dropdown-toggle data-toggle="dropdown"
+            | Join Tournament 
+            span.caret
+          ul.dropdown-menu
+            li = link_to 'Create new Team', new_tournament_team_path(@tournament), remote: true
+            li = link_to 'Join existing Team', new_tournament_teammate_path(@tournament), remote: true
+      - else
+        = link_to 'Leave tournament', "#", class: "btn btn-danger"
+br
 .row
   .col-md-12
     ul.nav.nav-tabs
       li.active 
-        a data-toggle="tab" href="#groups" Groups
+        a data-toggle="tab" href="#standings" Standings
+      li 
+        a data-toggle="tab" href="#games" Games
       li 
         a data-toggle="tab" href="#brackets" Brackets
     .tab-content
-      #groups.tab-pane.fade.in.active
-        P groups content
+      #standings.tab-pane.fade.in.active
+        = render @tournament.groups
+      #games.tab-pane.fade.in
+        P Games content
       #brackets.tab-pane.fade.in
         p bracket content
-#tournament-show-footer.well.row
+#tournament-show-footer.row
   .col-md-10
     span Hosted by: 
-    - @tournament.users.each do |user|
-      span = user.first_name
+    = link_to user_path(@tournament.creator)
+      = @tournament.creator.first_name
+    - @tournament.hosts.each do |host|
+      span , 
+      = link_to user_path(host)
+        = host.first_name
   .col-md-2
-    - if @tournament.users.exists?(current_user.id)
-      / = link_to 'Delete', destroy_tournament_path(@tournament), class: "btn btn-danger"
-      = link_to 'Edit', edit_tournament_path(@tournament), remote: true, class: "btn btn-default"
-- if user_signed_in?
-  #tournament-modal.modal.fade
-    .modal-dialog
-      #tournament_form.modal-content
+    - if @tournament.is_user_creator?(current_user)
+      = link_to 'Delete', "#", class: "btn btn-danger tournament-show-footer-button"
+    - if @tournament.is_user_host?(current_user)
+      = link_to 'Edit', edit_tournament_path(@tournament), remote: true, class: "btn btn-default tournament-show-footer-button"
     
 
 

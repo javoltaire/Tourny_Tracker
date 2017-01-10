@@ -2,16 +2,20 @@
 
 one:
   name: MyString
-  team_count: 
-  group_count: 
-  max_teammates: 
-  status: MyString
-  description: MyText
+  team_count: 1
+  use_grouping: false
+  EliminationType: one
+  max_teammates: 1
+  game: one
+  tournament_state: one
+  created_by: 1
 
 two:
   name: MyString
-  team_count: 
-  group_count: 
-  max_teammates: 
-  status: MyString
-  description: MyText
+  team_count: 1
+  use_grouping: false
+  EliminationType: two
+  max_teammates: 1
+  game: two
+  tournament_state: two
+  created_by: 1

@@ -19,7 +19,7 @@ html
                   = current_user.first_name + ' ' + current_user.last_name
                   span.caret
                 ul.dropdown-menu
-                  li = link_to 'Profile'
+                  li = link_to 'Profile', user_path(current_user)
                   li = link_to 'Account', edit_user_registration_path
                   li.divider role="separator"
                   li = link_to 'Logout', destroy_user_session_path, method: :delete
@@ -28,3 +28,17 @@ html
               li = link_to 'Sign up', new_user_registration_path
       .container-fluid
         = yield
+      footer.footer
+        .container-fluid
+          p.text-muted
+            | Created by 
+            span
+              a href="https://github.com/javoltaire"
+                | Jules Voltaire 
+            | and 
+            span
+              a href="https://github.com/howhelan"
+                | Hugh Whelan 
+      #modal-window.modal.fade
+        .modal-dialog
+          #modal-content.modal-content

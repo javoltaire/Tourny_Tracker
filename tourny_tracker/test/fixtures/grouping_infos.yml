@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  EliminationType: one
+  group_count: 1
+  teams_per_group: 1
+  playoffs_advanced_integer: MyString
+  tournament: one
+
+two:
+  EliminationType: two
+  group_count: 1
+  teams_per_group: 1
+  playoffs_advanced_integer: MyString
+  tournament: two

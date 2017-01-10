@@ -1,2 +1,18 @@
-$('#tournament-modal').modal(); 
-$('#tournament_form').html("<%= escape_javascript(render("tournament_form")) %>");
+$('#modal-window').modal(); 
+$('#modal-content').html("<%= escape_javascript(render("tournament_form")) %>");
+// Hide or show the use_grouping section initially base on the value of the checkbox
+if ($("#tournament_use_grouping").prop("checked")){
+  $("#tournament-form-group-section").show();
+}else{
+  $("#tournament-form-group-section").hide();
+}
+// This is to show or hide the group portion of the form when the use_grouping checkbox is checked or not
+$(document).ready(function(){
+  $("#tournament_use_grouping").click(function (){
+    if ($("#tournament_use_grouping").prop("checked")){
+      $("#tournament-form-group-section").show();
+    }else{
+      $("#tournament-form-group-section").hide();
+    }              
+  });
+});

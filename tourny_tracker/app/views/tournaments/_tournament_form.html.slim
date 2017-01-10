@@ -7,25 +7,47 @@
     .form-group
       = f.label "Name:", class: "control-label col-sm-2"
       .col-sm-10
-        = f.text_field :name, required: 'required', placeholder: "Name", autofocus: true, class: "form-control"
+        = f.text_field :name, placeholder: "Name", autofocus: true, class: "form-control"
+    .form-group
+      = f.label "Gouping:", class: "control-label col-sm-2"
+      .col-sm-1
+        = f.check_box :use_grouping, disabled: !@tournament.new_record?, class: "checkbox"
+      .col-sm-9
+        span Use Groups
+    #tournament-form-group-section
+      = f.fields_for :grouping_info do |ff|
+        .form-group
+          = ff.label "Group Elimination:", class: "control-label col-sm-2"
+          .col-sm-10
+            = ff.collection_select :elimination_type_id, EliminationType.all,:id,:name, {}, readonly: !@tournament.new_record?, class: "form-control"
+        .form-group
+          = ff.label "Groups:", class: "control-label col-sm-2"
+          .col-sm-10
+            = ff.number_field :group_count, placeholder: "Number of groups, if any (even)", readonly: !@tournament.new_record?, class: "form-control"
+        .form-group
+          = ff.label "Teams per Group", class: "control-label col-sm-2"
+          .col-sm-10
+            = ff.number_field :teams_per_group, placeholder: "Number of teams per groups (even)", readonly: !@tournament.new_record?, class: "form-control"
+        .form-group
+          = ff.label "Playoff Count", class: "control-label col-sm-2"
+          .col-sm-10
+            = ff.number_field :playoffs_advanced, placeholder: "Number of teams to move on to playoffs (even)", readonly: !@tournament.new_record?, class: "form-control"
+    .form-group
+      = f.label "Elimination:", class: "control-label col-sm-2"
+      .col-sm-10
+        = f.collection_select :elimination_type_id, EliminationType.all,:id,:name, {}, readonly: !@tournament.new_record?, class: "form-control"
     .form-group
       = f.label "Teams:", class: "control-label col-sm-2"
       .col-sm-10
-        = f.number_field :team_count, required: 'required', placeholder: "Number of teams in tournament (even)", class: "form-control"
+        = f.number_field :team_count, placeholder: "Number of teams in tournament (even)", readonly: !@tournament.new_record?, class: "form-control"
     .form-group
-      = f.label "Groups:", class: "control-label col-sm-2"
+      = f.label "Team Size:", class: "control-label col-sm-2"
       .col-sm-10
-        = f.number_field :group_count, placeholder: "Number of groups, if any (even)", class: "form-control"
+        = f.number_field :team_size, placeholder: "Number of teammates per teams", readonly: !@tournament.new_record?, class: "form-control"
     .form-group
-      = f.label "Teammates:", class: "control-label col-sm-2"
+      = f.label "Game:", class: "control-label col-sm-2"
       .col-sm-10
-        = f.number_field :max_teammates , required: 'required', placeholder: "Number of teammates per teams", class: "form-control"
-    .form-group
-      = f.label "Type:", class: "control-label col-sm-2"
-      .col-sm-10
-        = f.collection_select :game_type_id, GameType.order(:game_type),:id,:game_type, class: "form-control"
+        = f.collection_select :game_id, Game.order(:name),:id,:name, {}, readonly: !@tournament.new_record?, class: "form-control"
   .modal-footer
-    - if !@tournament.new_record?
-      = link_to 'Delete', root_path, class: "pull-left btn btn-danger"
     a.btn.btn-default data-dismiss="modal" href="#"  Close
     = f.submit :submit, class: "btn btn-primary"

@@ -2,13 +2,12 @@
   .header
     h5.label-header = tournament.name
     = image_tag 'cup.png'
-  .footer
-    span.label-header Type: 
-    span = tournament.game_type.game_type
+  .tournament-info
+    span.label-header Game: 
+    span = tournament.game.name
     br
     span.label-header State: 
-    span = tournament.status
+    span = tournament.tournament_state.state
     br
-    span.label-header Hosted by: 
-    - tournament.users.each do |user|
-      span = user.first_name
+    span.label-header Created by: 
+    span = tournament.creator.first_name

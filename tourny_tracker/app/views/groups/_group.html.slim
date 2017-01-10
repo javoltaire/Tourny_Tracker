@@ -1,0 +1,16 @@
+.list-group
+  .p.list-group-item.active = group.group_name.name
+  table.table.table-striped
+    thead
+      tr
+        th Rank
+        th Team
+        th W
+        th D
+        th L
+        th F
+        th A
+        th Pts
+    tbody
+      - unless group.teams.nil?
+        = render group.teams

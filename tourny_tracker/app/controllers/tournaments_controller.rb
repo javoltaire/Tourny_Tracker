@@ -1,41 +1,30 @@
 class TournamentsController < ApplicationController
   before_action :authenticate_user!, except: [ :index, :show ]
 
-
-
-
-
-
-
-
-
-
-
-
   def index
     @tournaments = Tournament.all
   end
 
   def show
     @tournament = find_tournament
-    if(@tournament.nil?)
-      redirect_to tournaments_path
-    end
   end
 
   def new
-    @tournament = current_user.tournaments.new
-    @tournament.users << current_user
+    @tournament = Tournament.new
+    @tournament.creator = current_user
+    @tournament.build_grouping_info
   end 
 
   def create
-    @tournament = current_user.tournaments.create(tournament_params)
-    @tournament.users << current_user
-    respond_to do |format|
-      if @tournament.save
-        format.html
-        format.js
-      else
+    # Build the tournament object using the parameters passed in
+    @tournament = Tournament.new(tournament_params)
+    # Set the creator of the tournament
+    @tournament.creator = current_user
+    # Handle the different response types
+    if @tournament.save
+      redirect_to tournament_path(@tournament)
+    else
+      respond_to do |format|
         format.json { render json: @tournament.errors.full_messages, status: :unprocessable_entity }
       end
     end
@@ -43,9 +32,6 @@ class TournamentsController < ApplicationController
 
   def edit
     @tournament = find_tournament
-    if(@tournament.nil?)
-      redirect_to tournaments_path
-    end
   end
 
   def update
@@ -58,21 +44,17 @@ class TournamentsController < ApplicationController
       end
     end
   end
-
+  
   def destroy
 
   end
 
   private
     def find_tournament
-      begin
-        @tournament = Tournament.find(params[:id])
-      rescue ActiveRecord::RecordNotFound => e
-        @tournament = nil
-      end
+      @tournament = Tournament.find(params[:id])
     end
 
     def tournament_params
-      params.require(:tournament).permit(:name, :team_count, :group_count, :max_teammates, :game_type_id,)
+      params.require(:tournament).permit(:name, :team_count, :use_grouping, :elimination_type_id, :team_size, :game_id, :tournament_state, grouping_info_attributes: [:elimination_type_id, :group_count, :teams_per_group, :playoffs_advanced])
     end
 end

@@ -1,0 +1,6 @@
+h1 Teams#show
+p Find me in app/views/teams/show.html.slim
+
+.col-md-10
+  - if @team.matches.any?
+    = render @team.matches
